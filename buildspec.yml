@@ -10,20 +10,15 @@ phases:
       - curl -L https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/10.13.0/flyway-commandline-10.13.0-linux-x64.tar.gz -o flyway.tar.gz
       - tar -xzf flyway.tar.gz -C /opt/flyway --strip-components=1
       - export PATH=$PATH:/opt/flyway
+
   pre_build:
     commands:
-      - echo "📁 Listing files in working directory:"
-      - pwd
-      - ls -la
-      - echo "🔄 Loading environment variables from .env..."
-      - if [ -f .env ]; then source .env; else echo "❌ .env file not found!"; exit 1; fi
+      - echo "🔐 Setting environment variables inline (PoC)..."
+      - export FLYWAY_URL="jdbc:postgresql://liquibase-poc-db.cmhc6iiygnwr.us-east-1.rds.amazonaws.com:5432/postgres"
+      - export FLYWAY_USER="saiadmin"
+      - export FLYWAY_PASSWORD="saitejaadmin"
+
   build:
     commands:
-      - echo "🚀 Running Flyway migrations from root directory..."
+      - echo "🚀 Running Flyway migration..."
       - flyway -url=$FLYWAY_URL -user=$FLYWAY_USER -password=$FLYWAY_PASSWORD -locations=filesystem:. migrate
-
-artifacts:
-  files:
-    - flyway.conf
-    - flyway.log
-    - flyway_output.txt
