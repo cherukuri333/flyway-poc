@@ -13,7 +13,7 @@ phases:
   pre_build:
     commands:
       - echo "Loading environment variables from .env..."
-      - source .env
+      - source ./env
   build:
     commands:
       - echo "Running Flyway migrations from root directory..."
