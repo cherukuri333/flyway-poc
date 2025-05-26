@@ -12,9 +12,18 @@ phases:
       - export PATH=$PATH:/opt/flyway
   pre_build:
     commands:
-      - echo "Loading environment variables from .env..."
-      - source ./env
+      - echo "📁 Listing files in working directory:"
+      - pwd
+      - ls -la
+      - echo "🔄 Loading environment variables from .env..."
+      - if [ -f .env ]; then source .env; else echo "❌ .env file not found!"; exit 1; fi
   build:
     commands:
-      - echo "Running Flyway migrations from root directory..."
+      - echo "🚀 Running Flyway migrations from root directory..."
       - flyway -url=$FLYWAY_URL -user=$FLYWAY_USER -password=$FLYWAY_PASSWORD -locations=filesystem:. migrate
+
+artifacts:
+  files:
+    - flyway.conf
+    - flyway.log
+    - flyway_output.txt
