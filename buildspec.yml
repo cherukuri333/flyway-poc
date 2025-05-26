@@ -21,4 +21,4 @@ phases:
   build:
     commands:
       - echo "🚀 Running Flyway migration..."
-      - flyway -url=$FLYWAY_URL -user=$FLYWAY_USER -password=$FLYWAY_PASSWORD -locations=filesystem:. migrate
+      - flyway -url=$FLYWAY_URL -user=$FLYWAY_USER -password=$FLYWAY_PASSWORD -locations=filesystem:. -baselineOnMigrate=true migrate
