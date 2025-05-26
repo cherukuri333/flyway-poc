@@ -1,0 +1,3 @@
+-- Undo table creation
+
+DROP TABLE IF EXISTS vernova;
